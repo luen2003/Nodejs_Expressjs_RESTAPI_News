@@ -4,9 +4,9 @@ You can build by running the following command:
 ```bash
 npm install
 ```
-<br>
+
 You can get started by running the following command:
-```bash
+```
 npm start
 ```
 ## Review
