@@ -82,7 +82,7 @@
         var mainContainer = document.getElementById("myData");
         for (var i = 0; i < data.length; i++) {
             var div = document.createElement("div");
-            div.className += "card mb-3 text-center";
+            div.className += "card mb-3 text-center bg-light";
             div.innerHTML = 'Title: ' + data[i].title + '<br> ' + 'Subtitle: ' +data[i].subtitle + '<br>' +  'Address: '+ data[i].link;
             mainContainer.appendChild(div);
         }
