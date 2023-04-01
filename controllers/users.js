@@ -43,7 +43,3 @@ export const updateUser =  (req,res) => {
 
     console.log(`username has been updated to ${req.body.title}.age has been updated to ${req.body.subtitle}`)
 };
-export const get = () =>{
-    return users;
-} 
-export  const user = users;
