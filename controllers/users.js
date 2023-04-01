@@ -18,7 +18,9 @@ export const createUser = (req, res) => {
 };
 
 export const getUser = (req, res) => {
-    res.send(req.params.id)
+    const {id} = req.params;
+    const foundUser = users.find((user) => user.id === id );
+    res.send(foundUser);
 };
 
 export const deleteUser = (req, res) => { 
@@ -37,9 +39,9 @@ export const deleteUsers = (req,res) => {
 export const updateUser =  (req,res) => {
     const user = users.find((user) => user.id === req.params.id);
     
-    user.title = req.body.title;
-    user.subtitle = req.body.subtitle;
-    user.link = req.body.link;
+    if (req.body.title) user.title = req.body.title;
+    if (req.body.subtitle) user.subtitle = req.body.subtitle;
+    if (req.body.link) user.link = req.body.link;
 
     console.log(`username has been updated to ${req.body.title}.age has been updated to ${req.body.subtitle}`)
 };
