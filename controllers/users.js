@@ -18,15 +18,15 @@ export const createUser = (req, res) => {
 };
 
 export const getUser = (req, res) => {
-    const {id} = req.params;
-    const foundUser = users.find((user) => user.id === id );
+    const id = req.params.id;
+    const foundUser = users.find((user) => user.id == id );
     res.send(foundUser);
 };
 
 export const deleteUser = (req, res) => { 
     console.log(`user with id ${req.params.id} has been deleted`);
     
-    users = users.filter((user) => user.id !== req.params.id);
+    users = users.filter((user) => user.id != req.params.id);
 };
 
 export const deleteUsers = (req,res) => {
@@ -37,7 +37,7 @@ export const deleteUsers = (req,res) => {
 }
 
 export const updateUser =  (req,res) => {
-    const user = users.find((user) => user.id === req.params.id);
+    const user = users.find((user) => user.id == req.params.id);
     
     if (req.body.title) user.title = req.body.title;
     if (req.body.subtitle) user.subtitle = req.body.subtitle;
