@@ -1,20 +1,28 @@
-import express from "express";
-import bodyParser from "body-parser";
-import usersRoutes from "./routes/users.js";
-import { fileURLToPath } from 'url';
-import { dirname } from 'path';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+const express = require("express");
+const bodyParser = require("body-parser");
+const usersRoutes =  require("./routes/users.js");
+const fileURLToPath =require('url');
+const dirname =require ('path');
+const mongoose = require("mongoose");
+
+
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
 app.use(bodyParser.json());
 app.use(express.static(__dirname));
-mongoose.connect(('mongodb+srv://userapi:userapi123@clusteruser.kydclaj.mongodb.net/?retryWrites=true&w=majority'), () => {
-    console.log("Connected to MongoDB");
-});
+mongoose
+  .connect('mongodb+srv://userapi:userapi123@clusteruser.kydclaj.mongodb.net/?retryWrites=true&w=majority', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+    useFindAndModify:true
+  })
+  .then(console.log("Connected to MongoDB"))
+  .catch((err) => console.log(err));
+
 
 app.use("/users", usersRoutes);
 app.get("/", (req, res) => {
