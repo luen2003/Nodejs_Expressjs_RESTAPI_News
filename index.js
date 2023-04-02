@@ -12,6 +12,9 @@ const PORT = process.env.PORT || 5000;
 
 app.use(bodyParser.json());
 app.use(express.static(__dirname));
+mongoose.connect(('mongodb+srv://userapi:userapi123@clusteruser.kydclaj.mongodb.net/?retryWrites=true&w=majority'), () => {
+    console.log("Connected to MongoDB");
+});
 
 app.use("/users", usersRoutes);
 app.get("/", (req, res) => {

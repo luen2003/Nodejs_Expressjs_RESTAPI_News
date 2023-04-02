@@ -1,47 +1,53 @@
-
+const User = require("../models/models");
 let id_ = 0 ;
 let users = [];
 
-export const getUsers = (req, res) => {
-    console.log(`news in the database: ${users}`);
+export const createUser = async  (req, res) => {
+    try {
+        const newUser = new User(req.body);
+        const savedUser = await newUser.save();
+        res.status(200).json(savedUser);
+      } catch (err) {
+        res.status(500).json(err); 
+      }
 
-    res.send(users);
+    
 }
 
-export const createUser = (req, res) => {   
-    const user = req.body;
-    const userWithId = {...user, id: ++id_};
-
-    users.push(userWithId);
-    
-    console.log(`news ${user.title} added to the database.`);
+export const getUsers = async (req, res) => {   
+    try {
+        const allUser = await User.find();
+        res.status(200).json(allUser);
+      } catch (err) {
+        res.status(500).json(err);
+      }
 };
 
-export const getUser = (req, res) => {
-    const id = req.params.id;
-    const foundUser = users.find((user) => user.id == id );
-    res.send(foundUser);
+export const getUser = async (req, res) => {
+    try {
+        const currentUser = await User.findById(req.params.id);
+        res.status(200).json(currentUser);
+      } catch (err) {
+        res.status(500).json(err);
+      }
 };
 
-export const deleteUser = (req, res) => { 
-    console.log(`news with id ${req.params.id} has been deleted`);
-    
-    users = users.filter((user) => user.id != req.params.id);
+export const deleteUser = async (req, res) => { 
+    try {
+        await User.findByIdAndDelete(req.params.id);
+        res.status(200).json("Deleted successfully!");
+      } catch (err) {
+        res.status(500).json(err);
+      }
 };
 
-export const deleteUsers = (req,res) => {
-    console.log(`All news has been deleted`);
 
-    users = users.filter((user) => true);
-
-}
-
-export const updateUser =  (req,res) => {
-    const user = users.find((user) => user.id == req.params.id);
-    
-    if (req.body.title) user.title = req.body.title;
-    if (req.body.subtitle) user.subtitle = req.body.subtitle;
-    if (req.body.link) user.link = req.body.link;
-
-    console.log(`title has been updated to ${req.body.title} and subtitle has been updated to ${req.body.subtitle}`)
+export const updateUser =  async (req,res) => {
+    try {
+        const updateUser = await User.findById(req.params.id);
+        await User.updateOne({ $set: req.body });
+        res.status(200).json("Updated successfully!");
+      } catch (err) {
+        res.status(500).json(err);
+      }
 };
