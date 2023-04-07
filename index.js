@@ -27,17 +27,6 @@ app.get("/", (req, res) => {
     res.sendFile(__dirname + "/index.html");
     console.log(__dirname);
 });
-app.post("/users", (request, response) => {
-
-
-  const newUser = {
-      title: request.body.title,
-      subtitle: request.body.subtitle,
-      link:request.body.link
-  };
-
-  response.status(201).json(newUser);
-});
 app.all("*", (req, res) =>res.send("You've tried reaching a route that doesn't exist."));
 
 app.listen(PORT, () =>console.log(`Server running on port: http://localhost:${PORT}`));
